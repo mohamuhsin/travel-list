@@ -43,7 +43,7 @@ export default function Form({ onAddItem }) {
                 onChange={handleNumChange}
             >
                 {numbers.map((number) => (
-                    <option key={number}>{number}%</option>
+                    <option key={number}>{number}</option>
                 ))}
             </select>
             <input

@@ -32,7 +32,7 @@ export default function App() {
         onDeleteItem={handleDeleteItem}
         onToggleItem={handleToggleItem}
       />
-      <Footer />
+      <Footer items={items} />
     </div>
   );
 }
