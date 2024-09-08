@@ -1,14 +1,19 @@
 /* eslint-disable react/prop-types */
-export default function Footer({ items }) {
-    if (!items.length)
+import { useContext } from "react";
+import { TravelContext } from "../store/TravelContext";
+
+export default function Footer() {
+    const travelCtx = useContext(TravelContext);
+
+    if (!travelCtx.items.length)
         return (
             <em>
                 <p className="stats">Start adding some items in your packing list 🚀</p>
             </em>
         );
 
-    const numOfItems = items.length;
-    const packedItems = items.filter((item) => item.packed).length;
+    const numOfItems = travelCtx.items.length;
+    const packedItems = travelCtx.items.filter((item) => item.packed).length;
 
     const percentage =
         numOfItems > 0 ? Math.round((packedItems / numOfItems) * 100) : 0;
