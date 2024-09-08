@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { TravelContext } from "../store/TravelContext";
 
-export default function Form({ onAddItem }) {
+export default function Form() {
+    const travelCtx = useContext(TravelContext);
     const [description, setDescription] = useState("");
     const [quantity, setQuantity] = useState(1);
 
@@ -19,7 +21,7 @@ export default function Form({ onAddItem }) {
             id: Date.now(),
         };
 
-        onAddItem(newItem);
+        travelCtx.addItem(newItem);
 
         setDescription("");
         setQuantity(1);
