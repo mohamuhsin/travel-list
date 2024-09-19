@@ -26,13 +26,7 @@ function travelReducer(state, action) {
     }
 
     if (action.type === "CLEAR_LIST") {
-        const confirmed = window.confirm(
-            "Are you sure you want to clear the list?"
-        );
-
-        if (confirmed) {
-            return [];
-        }
+        return [];
     }
 
     return state;
@@ -63,9 +57,15 @@ export default function TravelContextProvider({ children }) {
     }
 
     function clearList() {
-        dispatchCartActions({
-            type: "CLEAR_LIST",
-        });
+        const confirmed = window.confirm(
+            "Are you sure you want to clear the list?"
+        );
+
+        if (confirmed) {
+            dispatchCartActions({
+                type: "CLEAR_LIST",
+            });
+        }
     }
 
     const travelCtx = {
