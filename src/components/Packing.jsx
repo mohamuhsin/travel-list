@@ -12,6 +12,7 @@ export default function Packaging() {
     const travelCtx = useContext(TravelContext);
 
     const [sortBy, setSortBy] = useState("input");
+
     function handleSort(event) {
         setSortBy(event.target.value);
     }
@@ -42,12 +43,13 @@ export default function Packaging() {
                 ))}
             </ul>
 
-            <div className="actions">
+            <div className="action">
                 <select value={sortBy} onChange={handleSort}>
                     <option value="input">Sort By Input Order</option>
                     <option value="description">Sort By Description</option>
                     <option value="packed">Sort By Packed Status</option>
                 </select>
+                <button onClick={travelCtx.clearList}>Clear List</button>
             </div>
         </div>
     );

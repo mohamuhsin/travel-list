@@ -7,6 +7,7 @@ export const TravelContext = createContext({
     addItem: (item) => { },
     deleteItem: (id) => { },
     toggleItem: (id) => { },
+    clearList: () => { },
 });
 
 function travelReducer(state, action) {
@@ -22,6 +23,16 @@ function travelReducer(state, action) {
         return state.map((item) =>
             item.id === action.id ? { ...item, packed: !item.packed } : item
         );
+    }
+
+    if (action.type === "CLEAR_LIST") {
+        const confirmed = window.confirm(
+            "Are you sure you want to clear the list?"
+        );
+
+        if (confirmed) {
+            return [];
+        }
     }
 
     return state;
@@ -51,11 +62,18 @@ export default function TravelContextProvider({ children }) {
         });
     }
 
+    function clearList() {
+        dispatchCartActions({
+            type: "CLEAR_LIST",
+        });
+    }
+
     const travelCtx = {
         items: travelState,
         addItem,
         deleteItem,
         toggleItem,
+        clearList,
     };
 
     return (
