@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import PackingList from "./PackingList";
 import { TravelContext } from "../store/TravelContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 // const initialItems = [
 //     { id: 1, description: "Passports", quantity: 2, packed: true },
@@ -10,13 +10,45 @@ import { useContext } from "react";
 
 export default function Packaging() {
     const travelCtx = useContext(TravelContext);
+
+    const [sortBy, setSortBy] = useState("input");
+    function handleSort(event) {
+        setSortBy(event.target.value);
+    }
+
+    let sortedItems;
+
+    if (sortBy === "input") {
+        sortedItems = travelCtx.items;
+    }
+
+    if (sortBy === "description") {
+        sortedItems = travelCtx.items
+            .slice()
+            .sort((a, b) => a.description.localeCompare(b.description));
+    }
+
+    if (sortBy === "packed") {
+        sortedItems = travelCtx.items
+            .slice()
+            .sort((a, b) => Number(a.packed) - Number(b.packed));
+    }
+
     return (
         <div className="list">
             <ul>
-                {travelCtx.items.map((item) => (
+                {sortedItems.map((item) => (
                     <PackingList item={item} key={item.id} />
                 ))}
             </ul>
+
+            <div className="actions">
+                <select value={sortBy} onChange={handleSort}>
+                    <option value="input">Sort By Input Order</option>
+                    <option value="description">Sort By Description</option>
+                    <option value="packed">Sort By Packed Status</option>
+                </select>
+            </div>
         </div>
     );
 }
