@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import PackingList from "./PackingList";
 import { TravelContext } from "../store/TravelContext";
 import { useContext, useState } from "react";
